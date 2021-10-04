@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:Personas.Clases"
+             x:Class="Personas.Vistas.vw_Personas"
+             Title="Personas">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:Datos x:Key="datos1"></local:Datos>
+        </ResourceDictionary>
+        <DataTemplate x:Key="PersonaDataTemplate">
+            <ViewCell>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackLayout>
+                        <Label Text="{Binding Nombre}" TextColor="DimGray"></Label>
+                        <Label Text="{Binding Pais}" TextColor="Black"></Label>
+                        <Label Text="{Binding Fecha_Nacimiento, StringFormat='{}{0:dd/MM/yyy}'}"></Label>
+                    </StackLayout>
+                    <Label Text="{Binding Saldo, StringFormat='{}{0:N1}'}" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+                </Grid>
+                
+            </ViewCell>
+        </DataTemplate>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout BindingContext="{StaticResource datos1}">
+            <ListView ItemsSource="{Binding Personas}" SelectedItem="{Binding Persona_Seleccionada, Mode=TwoWay}" ItemTemplate="{StaticResource PersonaDataTemplate}" HasUnevenRows="True" ItemSelected="ListView_ItemSelected"></ListView>
+            <Label x:Name="lblSeleccionado" FontSize="Title"></Label>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
