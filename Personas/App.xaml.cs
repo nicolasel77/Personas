@@ -1,5 +1,7 @@
 ﻿using Personas.Vistas;
 using System;
+using System.Globalization;
+using System.Threading;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,6 +18,8 @@ namespace Personas
 
         protected override void OnStart()
         {
+            var userSelectedCulture = new CultureInfo("es-AR");
+            Thread.CurrentThread.CurrentCulture = userSelectedCulture;
         }
 
         protected override void OnSleep()

@@ -27,6 +27,8 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout BindingContext="{StaticResource datos1}">
+            <Entry x:Name="entry1"></Entry>
+            <Button Text="Agregar Persona" Command="{Binding AgregarPersonaCommand}" CommandParameter="{Binding Text, Source={x:Reference entry1}}"></Button>
             <ListView ItemsSource="{Binding Personas}" SelectedItem="{Binding Persona_Seleccionada, Mode=TwoWay}" ItemTemplate="{StaticResource PersonaDataTemplate}" HasUnevenRows="True" ItemSelected="ListView_ItemSelected"></ListView>
             <Label x:Name="lblSeleccionado" FontSize="Title"></Label>
         </StackLayout>

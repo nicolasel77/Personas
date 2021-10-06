@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace Personas.Clases
 {
@@ -8,8 +9,12 @@ namespace Personas.Clases
         private ObservableCollection<Persona> personas;
         private Persona persona_Seleccionada;
 
+        public ICommand AgregarPersonaCommand { get; set; }
+
         public Datos()
         {
+            AgregarPersonaCommand = new MyCommand(AgregarPersonaCommandExecute, AgregarPersonaCommandCanExecute);
+
             Personas = new ObservableCollection<Persona>();
             Random random = new Random();
 
@@ -19,6 +24,23 @@ namespace Personas.Clases
 
             }
         }
+        public bool AgregarPersonaCommandCanExecute()
+        {
+            return personas.Count < 10;
+        }
+
+        private void AgregarPersonaCommandExecute()
+        {
+            personas.Add(new Persona()
+            {
+                Nombre = Guid.NewGuid().ToString(),
+                Pais = Guid.NewGuid().ToString(),
+                Fecha_Nacimiento = new DateTime(1977, 1, 1),
+                Saldo = 0
+            }); 
+            (AgregarPersonaCommand as MyCommand)?.RaisCanExecuteChange();
+        }
+
         public ObservableCollection<Persona> Personas
         {
             get => personas; set
